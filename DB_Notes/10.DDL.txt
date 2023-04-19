@@ -1,0 +1,110 @@
+1. 스키마 정의
+    1) DDL(Data Definition Language)
+        -데이터베이스, 테이블을 CRUD
+        -테이블에 대한 정보는 메타데이터(MetaData) (메타데이터: 데이터의 데이터)
+        -데이터사전(Data Dicionary)에 저장, 관리됨
+
+    2) 데이터베이스(DB) 생성
+        -CREATE DATABASE 데이터베이스명;
+
+    3) 테이블 생성
+        -CREATE TABLE 테이블명(컬럼명1 데이터타입(크기), 컬럼명2...);
+
+2. 제약조건
+    0) 테이블을 구성하는 각각의 컬럼들을 제약조건을 가질 수 있음
+
+    1) NOT NULL
+        -컬럼에 값에 NULL이 들어갈 수 없다
+            -데이터가 null 값을 받아드리지 않음
+        -반드시 데이터 값이 들어가야 한다
+    2) UNIQIE
+        -UNIQIE 컬럼에 들어가는 값은 테이블 내에서 유일함을 보장함
+        -테이블에 동일한 값이 입력되어 있을 경우 받아드리지 않음
+        -예) 직원테이블에 직원번호는 해당 테이블 내에서 유일한 값이어야 함
+    3) PRIMARY KEY
+        -기본키 제약조건
+        -NOT NULL + UNIQIE 값이 들어가는 것을 보장함
+        -예) 직원테이블에 직원번호는 반드시 값이 있어야 하고 해당 테이블에서 유일한 값이여야 함
+    4) CHECK
+        -입력값 체크
+        -컬럼의 값에 사용자가 지정하는 특정 표현식을 만족하는 데이터가 들어감
+        -예) 학점 컬럼은 0.00~4.50 범위의 값만을 허용함
+    5) FOREIGN KEY
+        -외래키 제약조건
+        -해당 컬럼의 값은 참조하는 부모 테이블에 PK로써 존재하는 것을 보장함
+    6) DEFAULT
+        -컬럼값이 입력되지 않으면 기본값이 입력
+
+3. 스키마 수정
+    1) 이미 생성된 스키마에 대해 수정할 경우 사용함
+        -테이블 컬럼 추가/삭제/수정
+
+    2) ALTER TABLE 테이블명 ADD 컬럼명 데이터타입
+       ALTER TABLE 테이블명 DROP COLUMN 컬럼명
+       ALTER TABLE 테이블명 ALTER COLUMN 컬럼명 TYPE 데이터타입(컬럼타입변경)
+
+    3) 기본키 제약조건 추가 / 기본키 제약조건 삭제
+        -ALTER TABLE 테이블명 ADD PRIMARY KEY(컬럼명)
+        -ALTER TABLE 테이블명 DROP PRIMARY Key
+
+    4) UNIQIE 제약조건 추가 / 삭제
+        -ALTER TABLE 테이블명 ADD UNIQIE(컬럼명)
+        -ALTER TABLE 테이블명 ADD CONSTRAINT 제약명 UNIQIE(컬럼명1, 컬럼명2)
+        -ALTER TABLE 테이블명 DROP UNIQIE 제약명
+
+    5) 외래키 제약조건 추가 / 삭제
+        -ALTER TABLE 테이블명 ADD FOREIGN KEY(컬럼명) REFERNCES 원테이블(원컬럼명)
+        -ALTER TABLE 테이블명 DROP FOREIGN KEY 컬럼명
+
+    6) 테이블명
+        -ALTER TABLE 테이블명 RENAME NEW_테이블명
+
+    7) CHECK 제약조건 추가 / 삭제
+        -ALTER TABLE 테이블명 ADD CHECK 조건
+        -ALTER TABLE 테이블명 DROP CHECK 조건명
+
+    8) DEFAULT 제약조건 추가 / 삭제
+        -ALTER TABLE 테이블명 ALTER 컬럼명 SET DEFAULT 기본값
+        -ALTER TABLE 테이블명 ALTER 컬럼명 DROP DEFAULT
+
+4. 스키마 삭제
+    1) 데이터베이스(DB) 삭제
+        DROP DATABASE 데이터베이스명
+    
+    2) 테이블 삭제
+        -DROP TABLE 테이블명
+            -내용과 테이블 전체 삭제
+        -TRUNCATE TABLE 테이블명
+            -테이블 내용만 삭제
+            -테이블 스키마 유지
+
+        -DELETE * FROM 테이블명
+            -레코드를 일일히 하나씩 지움
+            -테이블 스키마는 유지
+
+5. 테이블 복사
+    1) 기존 테이블의 테이블 구조 및 데이터를 복사함
+
+
+6. 기본키(Pk, PRIMARY Key)
+    1) 테이블 내에서 고유하게 행을 식별하는데 사용되는 컬럼 또는 컬럼들의 조합임
+
+7. 외래키(FK, FOREIGN KEY)
+    1) (부모)테이블의 기본키를 참조하는 (자식)테이블의 컬럼 또는 컬럼들의 조합임
+
+8. 체크 제약조건
+    1) 컬럼값에 대한 제약을 거는 거임
+
+9. 유니크 계약조건
+    1) 컬럼 혹은 컬럼 조합에 대한 유니크 계약을 거는 것임
+    2) 유니크 제약이 걸린 컬럼 혹은 컬럼 조합에 대한 인덱스가 자동생성됨
+
+10. NOT NULL 제약조건
+    1) 특정 컬럼에 값이 NULL이 들어오는 것을 차단하는 것
+        -NULL은 알수 없거나 정보가 누락되었음을 나타냄
+        -빈 문자열이나 숫자0과는 다름
+
+    2) NULL비교
+        -특정 컬럼의 값이 NULL인지 아닌지 비교하는 방법
+        -IS NULL (널인지를 판단)
+        -IS NOT NULL (널이 아닌지를 판단)
